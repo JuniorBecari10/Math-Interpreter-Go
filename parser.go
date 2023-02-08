@@ -78,10 +78,10 @@ func (p *Parser) factor() Node {
     p.advance()
     res := p.exp()
     
-    if tk.kind != RPAREN {
-      PrintError(p.cursor, "Unclosed parenthesis.")
-      //return nil
-    }
+    //if tk.kind != RPAREN {
+    //  PrintError(p.cursor, "Unclosed parenthesis.")
+    //  return nil
+    //}
     
     p.advance()
     return res

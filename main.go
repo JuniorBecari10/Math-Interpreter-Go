@@ -21,6 +21,8 @@ func main() {
     p := NewParser(tks)
     ast := Parse(p)
     
-    fmt.Println(ast)
+    value := Interpret(ast)
+    
+    fmt.Printf("< %f\n", value.value)
   }
 }
