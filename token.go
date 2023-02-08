@@ -1,9 +1,5 @@
 package main
 
-import (
-  "bytes"
-)
-
 const (
   NUMBER = "NUMBER"
   
@@ -19,20 +15,10 @@ const (
   ERROR  = "ERROR"
 )
 
+type Any interface {}
+
 type Token struct {
   kind  string
-  chars string
+  chars Any
   pos   int
-}
-
-func (t *Token) String() string {
-  var out bytes.Buffer
-  
-  out.WriteString(t.kind)
-  
-  if t.kind == NUMBER {
-    out.WriteString(":" + t.chars)
-  }
-  
-  return out.String()
 }

@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+  "strconv"
 )
 
 const (
@@ -100,10 +101,19 @@ func (l *Lexer) nextToken() Token {
     return Token { RPAREN, ")", pos }
   }
   
-  if IsNumber(l.getChar()) {
+  if IsNumber(l.getChar()) || l.getChar() == '.' {
     pos := l.cursor
     
-    return Token { NUMBER, l.getNumber(), pos }
+    nStr := l.getNumber()
+    
+    n, err := strconv.ParseFloat(nStr, 64)
+    
+    if err != nil {
+      PrintError(pos, "Cannot parse token as a number.")
+      return Token { ERROR, "", l.cursor }
+    }
+    
+    return Token { NUMBER, n, pos }
   }
   
   PrintError(l.cursor, "Unknown token.")
@@ -113,7 +123,7 @@ func (l *Lexer) nextToken() Token {
 func (l *Lexer) getNumber() string {
   pos := l.cursor
   
-  for IsNumber(l.getChar()) {
+  for IsNumber(l.getChar()) || l.getChar() == '.' {
     l.advance()
   }
   
