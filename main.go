@@ -18,6 +18,9 @@ func main() {
     l := NewLexer(text)
     tks := Lex(l)
     
-    fmt.Println(tks)
+    p := NewParser(tks)
+    ast := Parse(p)
+    
+    fmt.Println(ast)
   }
 }

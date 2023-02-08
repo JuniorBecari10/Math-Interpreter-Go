@@ -19,6 +19,6 @@ type Any interface {}
 
 type Token struct {
   kind  string
-  chars Any
+  value Any
   pos   int
 }
