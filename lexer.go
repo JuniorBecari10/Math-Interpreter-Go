@@ -58,6 +58,48 @@ func (l *Lexer) nextToken() Token {
     return Token { END, "", l.cursor }
   }
   
+  if l.getChar() == '+' {
+    pos := l.cursor
+    l.advance()
+    
+    return Token { PLUS, "+", pos }
+  }
+  
+  if l.getChar() == '-' {
+    pos := l.cursor
+    l.advance()
+    
+    return Token { MINUS, "-", pos }
+  }
+  
+  if l.getChar() == '*' {
+    pos := l.cursor
+    l.advance()
+    
+    return Token { TIMES, "*", pos }
+  }
+  
+  if l.getChar() == '/' {
+    pos := l.cursor
+    l.advance()
+    
+    return Token { DIVIDE, "/", pos }
+  }
+  
+  if l.getChar() == '(' {
+    pos := l.cursor
+    l.advance()
+    
+    return Token { LPAREN, "(", pos }
+  }
+  
+  if l.getChar() == ')' {
+    pos := l.cursor
+    l.advance()
+    
+    return Token { RPAREN, ")", pos }
+  }
+  
   if IsNumber(l.getChar()) {
     pos := l.cursor
     
