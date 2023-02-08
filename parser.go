@@ -74,6 +74,35 @@ func (p *Parser) term() Node {
 func (p *Parser) factor() Node {
   tk := p.getToken()
   
+  if tk.kind == LPAREN {
+    p.advance()
+    res := p.exp()
+    
+    if tk.kind != RPAREN {
+      PrintError(p.cursor, "Unclosed parenthesis.")
+      //return nil
+    }
+    
+    p.advance()
+    return res
+  }
+  
+  if tk.kind == RPAREN {
+    PrintError(p.cursor, "Unopened parenthesis.")
+  }
+  
+  if tk.kind == PLUS {
+    p.advance()
+    
+    return PlusNode { p.factor() }
+  }
+  
+  if tk.kind == MINUS {
+    p.advance()
+    
+    return MinusNode { p.factor() }
+  }
+  
   if tk.kind == NUMBER {
     p.advance()
     
