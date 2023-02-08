@@ -7,6 +7,10 @@ import (
 func Interpret(n Node) Number {
   fn := GetFunc(n)
   
+  if fn == nil {
+    return Number { 0 }
+  }
+  
   return fn(n)
 }
 
@@ -64,9 +68,9 @@ func VisitBin(n Node) Number {
 }
 
 func VisitPlus(n Node) Number {
-  return Number { n.(NumberNode).value }
+  return Number { n.(PlusNode).value.(NumberNode).value }
 }
 
 func VisitMinus(n Node) Number {
-  return Number { -n.(NumberNode).value }
+  return Number { -n.(MinusNode).value.(NumberNode).value }
 }

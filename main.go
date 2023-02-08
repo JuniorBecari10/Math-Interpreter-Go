@@ -15,11 +15,23 @@ func main() {
     
     text := scanner.Text()
     
+    if text == "" {
+      continue
+    }
+    
     l := NewLexer(text)
     tks := Lex(l)
     
+    if tks == nil || len(tks) == 0 {
+      continue
+    }
+    
     p := NewParser(tks)
     ast := Parse(p)
+    
+    if ast == nil {
+      continue
+    }
     
     value := Interpret(ast)
     
